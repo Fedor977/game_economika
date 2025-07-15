@@ -1,10 +1,3 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-"""
-Game Server - Основной сервер игровой экономики
-Обрабатывает все операции с аккаунтами и предметами
-"""
-
 import socket
 import threading
 import json
@@ -13,7 +6,7 @@ import random
 import logging
 from datetime import datetime
 
-# Настройка логирования
+# настройка логирования
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 
@@ -78,7 +71,7 @@ class DatabaseManager:
         logger.info("База данных инициализирована")
 
     def get_account(self, nickname):
-        """Получение аккаунта по nickname"""
+        """Получение аккаунта по нику"""
         conn = sqlite3.connect(self.db_path)
         cursor = conn.cursor()
 
@@ -219,7 +212,7 @@ class GameServer:
             server_socket.listen(5)
             logger.info(f"Сервер запущен на {self.host}:{self.port}")
             print(f"Игровой сервер запущен на {self.host}:{self.port}")
-            print("Ожидание подключения клиентов...")
+            print("Ожидание подключения клиентов")
             print("Для остановки нажмите Ctrl+C")
             print("-" * 50)
 
@@ -365,12 +358,12 @@ class GameServer:
         if account['credits'] < item_price:
             return {'status': 'error', 'message': 'Недостаточно кредитов'}
 
-        # Покупаем предмет
+        # купить предмет
         new_credits = account['credits'] - item_price
         self.db_manager.update_credits(account['id'], new_credits)
         self.db_manager.add_item(account['id'], item_id)
 
-        # Обновляем сессию
+        # обнова сес
         account['credits'] = new_credits
         if item_id in account['items']:
             account['items'][item_id] += 1
