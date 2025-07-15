@@ -105,15 +105,15 @@ class GameClient:
         self.clear_screen()
         self.print_header()
 
-        print("Введите ваш nickname для входа в игру:")
-        nickname = input("Nickname: ").strip()
+        print("Введите ваш ник для входа в игру:")
+        nickname = input("ник: ").strip()
 
         if not nickname:
             print("Nickname не может быть пустым!")
-            input("Нажмите Enter для продолжения...")
+            input("Нажмите Enter для продолжения")
             return
 
-        print("\nПодключение к серверу...")
+        print("\nПодключение к серверу")
 
         # отправляем запрос на логин
         response = self.send_request({
@@ -133,7 +133,7 @@ class GameClient:
             error_msg = response.get('message', 'Неизвестная ошибка') if response else 'Ошибка соединения'
             print(f"\nОшибка входа: {error_msg}")
 
-        input("Нажмите Enter для продолжения...")
+        input("Нажмите Enter для продолжения")
 
     def game_session_state(self):
         """Состояние игровой сессии"""
@@ -167,7 +167,7 @@ class GameClient:
                 self.logout()
             else:
                 print("Неверный выбор!")
-                input("Нажмите Enter для продолжения...")
+                input("Нажмите Enter для продолжения")
 
     def show_balance(self):
         """Показать баланс"""
@@ -199,7 +199,7 @@ class GameClient:
         for item_id, item_info in self.available_items.items():
             print(f"{item_id.ljust(15)} | {item_info['name'].ljust(20)} | {item_info['price']} кредитов")
 
-        input("\nНажмите Enter для продолжения...")
+        input("\nНажмите Enter для продолжения")
 
     def show_my_items(self):
         """Показать предметы игрока"""
@@ -237,8 +237,8 @@ class GameClient:
             return
 
         if item_id not in self.available_items:
-            print("Неверный ID предмета!")
-            input("Нажмите Enter для продолжения...")
+            print("Неверный ID предмета")
+            input("Нажмите Enter для продолжения")
             return
 
         # Отправляем запрос на покупку
@@ -257,7 +257,7 @@ class GameClient:
             error_msg = response.get('message', 'Неизвестная ошибка') if response else 'Ошибка соединения'
             print(f"\nОшибка покупки: {error_msg}")
 
-        input("Нажмите Enter для продолжения...")
+        input("Нажмите Enter для продолжения")
 
     def sell_item(self):
         """Продать предмет"""
@@ -305,7 +305,7 @@ class GameClient:
             error_msg = response.get('message', 'Неизвестная ошибка') if response else 'Ошибка соединения'
             print(f"\nОшибка продажи: {error_msg}")
 
-        input("Нажмите Enter для продолжения...")
+        input("Нажмите Enter для продолжения")
 
     def logout(self):
         """Выход из игры"""
@@ -329,10 +329,10 @@ class GameClient:
                 return True
 
             if attempt == 0:
-                print("Сервер недоступен. Попытка автоматического запуска...")
+                print("Сервер недоступен. Попытка автоматического запуска")
                 self.try_start_server()
 
-            print(f"Попытка подключения {attempt + 1}/{max_attempts}...")
+            print(f"Попытка подключения {attempt + 1}/{max_attempts}")
             time.sleep(2)
 
         return False
@@ -354,11 +354,11 @@ class GameClient:
                 else:  # Linux/Mac
                     subprocess.Popen([sys.executable, 'server.py'])
 
-                print("Сервер запущен. Ожидание инициализации...")
+                print("Сервер запущен. Ожидание инициализации")
                 time.sleep(3)  # Даем время серверу запуститься
 
             except Exception as e:
-                print(f"Не удалось автоматически запустить сервер: {e}")
+                print(f"Не удалось автоматически запустить сервер {e}")
         else:
             print("Файл server.py не найден в текущей директории")
 
@@ -373,7 +373,7 @@ class GameClient:
             print("1. Запустить сервер вручную: python server.py")
             print("2. Убедиться, что файл server.py находится в той же папке")
             print("3. Проверить, что порт 12345 свободен")
-            input("\nНажмите Enter для выхода...")
+            input("\nНажмите Enter для выхода")
             return
 
         try:
@@ -385,14 +385,14 @@ class GameClient:
                 else:
                     break
 
-                # Проверяем соединение после каждой операции
+                # проверка соединения после каждой операции
                 if not self.connected:
                     print("\nСоединение с сервером потеряно.")
                     print("Попробуйте перезапустить клиент.")
                     break
 
         except KeyboardInterrupt:
-            print("\n\nВыход из игры...")
+            print("\n\nВыход из игры")
         finally:
             self.disconnect()
 
